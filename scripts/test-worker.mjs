@@ -1,0 +1,13 @@
+﻿import assert from 'node:assert/strict';
+import worker from '../worker/index.js';
+const sample = 'Marca temporal,¿Cuál es su nombre completo?,Confirma su asistencia a la boda?,¿Estará presente en la Ceremonia Religiosa?,¿Estará presente en la Recepción?,Correo,Mensaje\n03/11/2026 10:20,Ana Pérez,Sí,Sí,No,,"Mucho amor, siempre"';
+globalThis.fetch = async () => new Response(sample, { status: 200 });
+const response = await worker.fetch(new Request('http://local/api/respuestas'));
+const payload = await response.json();
+assert.equal(response.status, 200);
+assert.equal(payload.rows.length, 2);
+assert.equal(payload.rows[1][6], 'Mucho amor, siempre');
+const page = await (await worker.fetch(new Request('http://local/'))).text();
+assert.match(page, /data:image\/jpeg;base64,/);
+assert.match(page, /<title>Confirmaciones/);
+console.log('Worker, CSV y HTML correctos');
