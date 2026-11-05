@@ -9,7 +9,23 @@
     return 'pending';
   };
   const plural = (count, singular, pluralForm) => `${count} ${count === 1 ? singular : pluralForm}`;
+  const dataUrl = window.RSVP_DATA_URL || '/api/respuestas';
+  if (window.RSVP_DATA_URL) $('refresh-policy').textContent = 'Consulta cada minuto · datos publicados aprox. cada 5 min';
   let guests = [];
+
+  function parseCsv(input) {
+    const rows = []; let row = [], cell = '', quoted = false;
+    for (let i = 0; i < input.length; i++) {
+      const char = input[i];
+      if (char === '"') { if (quoted && input[i + 1] === '"') { cell += '"'; i++; } else quoted = !quoted; }
+      else if (char === ',' && !quoted) { row.push(cell); cell = ''; }
+      else if ((char === '\n' || char === '\r') && !quoted) { if (char === '\r' && input[i + 1] === '\n') i++; row.push(cell); if (row.some(value => value.trim())) rows.push(row); row = []; cell = ''; }
+      else cell += char;
+    }
+    row.push(cell); if (row.some(value => value.trim())) rows.push(row);
+    if (rows[0]?.[0]) rows[0][0] = rows[0][0].replace(/^\uFEFF/, '');
+    return rows;
+  }
 
   function readRows(rows) {
     const headers = (rows[0] || []).map(normalize);
@@ -54,9 +70,9 @@
     button.disabled = true;
     $('sync-text').textContent = 'Actualizando respuestas';
     try {
-      const response = await fetch('/api/respuestas?ts=' + Date.now(), {cache:'no-store'});
+      const response = await fetch(dataUrl + '?ts=' + Date.now(), {cache:'no-store'});
       if (!response.ok) throw new Error('El formulario no respondió correctamente.');
-      const data = await response.json();
+      const data = window.RSVP_DATA_URL ? {rows:parseCsv(await response.text())} : await response.json();
       if (!Array.isArray(data.rows)) throw new Error('Las respuestas no tienen el formato esperado.');
       guests = readRows(data.rows);
       render();
