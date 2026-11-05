@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f5ef">
+  <meta name="description" content="Un espacio para Karina y Michael: sus invitados, confirmaciones y mensajes para el gran día.">
+  <title>Nuestro día · Karina y Michael</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#inicio" aria-label="Ir al inicio"><span class="brand-mark">K<span>&</span>M</span><span class="brand-caption">NUESTRO DÍA</span></a>
+    <nav aria-label="Secciones"><a href="#invitados">Invitados</a><a href="#mensajes">Mensajes</a><a href="#organizacion">Organización</a></nav>
+    <span class="sync"><span class="sync-dot"></span><span><span id="sync-text">Cargando respuestas</span><small style="display:block;font-size:9px;color:#a39489;line-height:1.4">Actualización automática cada minuto</small></span></span>
+  </header>
+
+  <main id="inicio">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">UN ESPACIO SOLO PARA USTEDES</p>
+        <h1 id="hero-title">Su día se está llenando de <em>personas bonitas.</em></h1>
+        <p class="hero-intro">Aquí pueden disfrutar cada confirmación, leer los buenos deseos y tener a mano lo esencial para celebrar juntos.</p>
+        <div class="hero-actions"><a class="button button-primary" href="#mensajes">Leer sus mensajes <span aria-hidden="true">↗</span></a><a class="text-link" href="#invitados">Ver quiénes vienen <span aria-hidden="true">→</span></a></div>
+        <div class="hero-note"><span class="note-line"></span> KARINA <span class="note-heart">♡</span> MICHAEL</div>
+      </div>
+      <div class="hero-photo"><img src="/img/dashboard-hero.jpg" alt="Karina y Michael tomados de las manos el día de su boda"><div class="photo-caption">Los mejores momentos se viven juntos.</div></div>
+    </section>
+
+    <div class="content">
+      <div id="error" class="error" role="alert" hidden></div>
+      <section class="welcome" aria-labelledby="welcome-title">
+        <div><p class="eyebrow">CADA RESPUESTA ES UNA HISTORIA</p><h2 id="welcome-title">Lo bonito de tenerlos cerca</h2><p>Un vistazo cálido a las personas que compartirán este momento con ustedes.</p></div>
+        <button type="button" id="refresh" class="refresh">Actualizar respuestas <span aria-hidden="true">↻</span></button>
+      </section>
+
+      <section class="overview" aria-label="Resumen de confirmaciones">
+        <div class="overview-lead"><span class="little-heart">♡</span><strong id="confirmed">0</strong><span>personas han dicho <em>sí, allí estaremos</em></span></div>
+        <div class="overview-detail"><span class="detail-icon">✉</span><strong id="total">0</strong><span>respuestas recibidas</span></div>
+        <div class="overview-detail"><span class="detail-icon">✧</span><strong id="ceremony">0</strong><span>en la ceremonia</span></div>
+        <div class="overview-detail"><span class="detail-icon">♫</span><strong id="reception">0</strong><span>en la recepción</span></div>
+      </section>
+
+      <div class="main-grid">
+        <section class="section-card guests" id="invitados" aria-labelledby="guests-title">
+          <div class="section-heading"><div><p class="eyebrow">QUIÉNES COMPARTIRÁN EL DÍA</p><h2 id="guests-title">Nuestros invitados</h2><p id="guest-subtitle">Las respuestas aparecerán aquí en cuanto lleguen.</p></div><span class="ornament" aria-hidden="true">✳</span></div>
+          <div class="guest-controls"><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Buscar un nombre" aria-label="Buscar invitado por nombre"></label><label class="filter-label">Mostrar <select id="filter" aria-label="Filtrar por asistencia"><option value="all">Todos</option><option value="yes">Confirmados</option><option value="no">No asistirán</option><option value="pending">Por definir</option></select></label></div>
+          <div id="guest-list" class="guest-list" aria-live="polite"></div>
+        </section>
+        <section class="section-card messages" id="mensajes" aria-labelledby="messages-title"><div class="section-heading"><div><p class="eyebrow">PALABRAS PARA GUARDAR</p><h2 id="messages-title">Mensajes con cariño</h2><p>Pequeños recuerdos que pueden volver a leer cuando quieran.</p></div><span class="ornament" aria-hidden="true">♡</span></div><div id="message-list" class="message-list" aria-live="polite"></div><p id="message-count" class="message-count"></p></section>
+      </div>
+
+      <section class="planning" id="organizacion" aria-labelledby="planning-title"><div><p class="eyebrow">PARA ORGANIZAR CON CALMA</p><h2 id="planning-title">Todo va tomando forma.</h2><p>Las respuestas del formulario les ayudan a preparar cada momento. Si necesitan un dato puntual, pueden encontrarlo en la lista de invitados.</p></div><div class="planning-summary"><div><span>Confirmados para ceremonia</span><strong id="ceremony-summary">0 personas</strong></div><div><span>Confirmados para recepción</span><strong id="reception-summary">0 personas</strong></div><div><span>Última actualización</span><strong id="updated">Pendiente</strong></div></div></section>
+    </div>
+  </main>
+  <footer>Karina & Michael <span>♡</span> Hecho con amor para recordar este día.</footer>
+</body>
+</html>
