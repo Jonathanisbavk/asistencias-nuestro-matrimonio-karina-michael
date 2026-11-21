@@ -13,5 +13,5 @@ rows = list(csv.reader(io.StringIO(text)))
 if not rows or "Marca temporal" not in rows[0] or not any("nombre completo" in cell.lower() for cell in rows[0]):
     raise ValueError("La hoja publicada no devolvió el CSV esperado")
 
-Path("docs/data.csv").write_text(text, encoding="utf-8")
+Path("docs/data.csv").write_text(text, encoding="utf-8", newline="")
 print(f"CSV actualizado: {max(0, len(rows) - 1)} respuestas")
